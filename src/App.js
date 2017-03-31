@@ -7,13 +7,17 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      channels: [],
-      users: []
+      channels: []
     };
   }
   addChannel(name){
     let {channels} = this.state;
-    channels.push({id: channels.length, name});
+    channels.push({
+      id: channels.length, 
+      name, 
+      messages: [{id: 0, body: 'message 1'}, {id:1, body: 'message 2'}],
+      users: [{id: 0, name: 'user 1'}, {id:1, name: 'user 2'}]
+    });
     this.setState({channels});
     // TODO: Send to server
   }
@@ -22,10 +26,13 @@ class App extends Component{
     // TODO: Get Channels Messages
   }
   addUser(name){
-    let {users} = this.state;
-    users.push({id: users.length, name});
-    this.setState({users});
+    let {activeChannel} = this.state;
+    activeChannel.users.push({id: activeChannel.users.length, name});
+    this.setState({activeChannel});
     // TODO: Send to server
+  }
+  setUser(activeUser){
+    this.setState({activeUser});
   }
   render(){
     return (
@@ -36,16 +43,15 @@ class App extends Component{
               addChannel={this.addChannel.bind(this)}
               setChannel={this.setChannel.bind(this)}
             />
+            <UserSection 
+              {...this.state}
+              addUser={this.addUser.bind(this)}
+              setUser={this.setUser.bind(this)}
+            />
           </div>
           <div className='messages-container'>
             <MessageSection 
               {...this.state}
-            />
-          </div>
-          <div className='nav'>
-            <UserSection 
-              {...this.state}
-              addUser={this.addUser.bind(this)}
             />
           </div>
       </div>
