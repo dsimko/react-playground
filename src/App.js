@@ -39,7 +39,8 @@ class App extends Component{
     activeChannel.messages.push({
       id: activeChannel.messages.length,
       body: message,
-      author: activeUser.name
+      author: activeUser.name,
+      createdAt: new Date()
     })
     this.setState({activeChannel});
   }

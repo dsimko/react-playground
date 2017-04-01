@@ -9,17 +9,22 @@ class UserForm extends Component{
     node.value = '';
   }
   render(){
-    return (
-      <form onSubmit={this.onSubmit.bind(this)}>
-        <div className='form-group'>
+    let input;
+    if(this.props.activeChannel !== undefined){
+      input = (
           <input 
             className='form-control'
             placeholder='Add User'
             type='text'
             ref='user'
           />
+      )
+    }
+    return (
+      <form onSubmit={this.onSubmit.bind(this)}>
+        <div className='form-group'>
+          {input}
         </div>
-        
       </form>
     )
   }
