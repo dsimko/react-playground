@@ -15,14 +15,14 @@ class App extends Component{
     channels.push({
       id: channels.length, 
       name, 
-      messages: [{id: 0, body: 'message 1'}, {id:1, body: 'message 2'}],
-      users: [{id: 0, name: 'user 1'}, {id:1, name: 'user 2'}]
+      messages: [],
+      users: []
     });
     this.setState({channels});
     // TODO: Send to server
   }
   setChannel(activeChannel){
-    this.setState({activeChannel});
+    this.setState({activeChannel, activeUser: {}});
     // TODO: Get Channels Messages
   }
   addUser(name){
@@ -34,6 +34,16 @@ class App extends Component{
   setUser(activeUser){
     this.setState({activeUser});
   }
+  sendMessage(message){
+    let {activeChannel, activeUser} = this.state;
+    activeChannel.messages.push({
+      id: activeChannel.messages.length,
+      body: message,
+      author: activeUser.name
+    })
+    this.setState({activeChannel});
+  }
+
   render(){
     return (
       <div className='app'>
@@ -52,6 +62,7 @@ class App extends Component{
           <div className='messages-container'>
             <MessageSection 
               {...this.state}
+              sendMessage={this.sendMessage.bind(this)}
             />
           </div>
       </div>

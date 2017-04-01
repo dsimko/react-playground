@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import MessageList from './MessageList.jsx'
+import MessageForm from './MessageForm.jsx'
 
 class MessageSection extends Component{
   render(){
@@ -10,6 +11,7 @@ class MessageSection extends Component{
         </div>
         <div className='panel-body messsages'>
           <MessageList {...this.props}/>
+          <MessageForm {...this.props} />
         </div>
       </div>
       
