@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
 import User from './User.jsx'
 
-class UserList extends Component{
+class UserList extends React.Component{
   render(){
-    const {activeChannel} = this.props;
-    const users = activeChannel ? activeChannel.users : []
     return (
       <ul>{
-        users.map( user =>{
-          return <User 
-            user={user}
-            key={user.id}
-            {...this.props}
-          />
+        this.props.users.map( user =>{
+          return (
+            <User 
+              key={user.id}
+              user={user}
+            />)
         })
       }</ul>
     )
